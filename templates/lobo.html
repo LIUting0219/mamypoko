@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>页面：
+
+1. 登陆页面
+
+	操作：登陆
+	
+	Form提交：
+		-- 参数： 		username, password(md5)
+		-- 返回值：		redirect or</title>
+
+</head>
+<body>
+<p>页面：</p>
+
+<ol>
+<li><p>登陆页面</p>
+
+<p> 操作：登陆</p>
+
+<p> Form提交：
+     -- 参数：        username, password(md5)
+     -- 返回值：     redirect or error_info</p></li>
+<li><p>主页面：</p>
+
+<p> 2.1 乐播用户</p>
+
+<pre><code> 2.1.1 最近登录
+
+ 2.1.2 最新加入
+
+ 2.1.3 粉丝最多
+
+ 2.1.4 最多喜欢
+
+ 2.1.5 最多播放
+
+     操作：点击用户、切换Tab、搜索、分页
+
+     API ：/user/list       请求用户列表
+             -- 参数           type=0/1/2/3/4, page, num_per_page
+             -- 返回值        [{ id, name, image_url }, ...]
+
+
+ 2.1.6 用户详细信息页面（页面render还是ajax请求？）
+
+     操作：返回、推荐、点击视频、添加粉丝、添加喜欢
+
+     API ：1) /user/detail      请求用户详细信息
+                 -- 参数           id
+                 -- 返回值        { id, image_url, name, signature, email, extra={video, fav, follow, fans} }
+
+           2) /user/extra        请求用户相关信息
+                 -- 参数           id, type=0/1/2/3, page, num_per_page
+                 -- 返回值        [{ id, video_image_url, name, description, info={fav_count, com_count, play_count, pub_time } }, ...]
+                                 ......
+
+           3) /user/recommend    用户推荐视频
+                 -- 参数           uid, vid, 
+                 -- 返回值        
+
+           4) /fans/list         获取全站粉丝列表
+                 -- 参数           page, num_per_page
+                 -- 返回值        [{ id, image_url, name, status=0/1 }, ...]
+
+           5) /user/addfans      用户添加粉丝
+                 -- 参数           uid, [fid, ...], page, num_per_page
+                 -- 返回值        [{ id, name, image_url }]
+
+           6) /video/addfav      视频添加喜欢
+                 -- 参数           uid, vid
+                 -- 返回值        [{ ... }]
+
+ 2.1.7 视频详情页面
+
+     操作：返回、推荐此视频
+
+     API ：1) /video/detail     获取视频信息
+                 -- 参数           id
+                 -- 返回值        { id, video_info={?}, image_url, name, forward, description, play_count }
+</code></pre>
+
+<p> 2.2 乐播视频</p>
+
+<pre><code> 2.2.1 发布视频
+
+     操作：发布视频，选取（立即上传，回调显示视频信息）、日历控件
+
+     API ：1) /user/list            获取用户列表
+
+           2) /hotwords          获取热门词汇
+
+ 2.2.2 视频管理
+
+     推荐频道
+
+     活跃频道
+
+     最新视频
+
+     热门视频
+
+     编辑推荐视频
+
+         操作：搜索、推荐
+
+         API ：/video/list      获取视频列表
+                 -- 参数           type=0/1/2/3/4/5, page, num_per_page
+                 -- 返回值        [{ id, name, description, image_url, video_info={ ... }}, ...]
+</code></pre>
+
+<p> 2.3 处理举报</p>
+
+<p> 2.4 后台账号</p>
+
+<pre><code> 2.4.1 管理员账号
+
+     操作：启用、禁用、删除、添加管理员、编辑、勾选、分页
+
+     列表：名称、Email、上次登陆时间、上次登陆IP
+
+     API : 1) /admin/list    请求当前管理员信息列表
+                 -- 参数       page, num_per_page
+                 -- 返回值    [{ id, name, login_name, email, last_login_time, ip }, ...]
+
+           2) /admin/add     添加一个管理员账号
+                 -- 参数       name, login_name, password(md5)
+                 -- 返回值    {id, name, login_name, email, last_login_time, ip }
+
+           3) /admin/enable  启用/禁用一个管理员账号
+                 -- 参数       id, enable=1/0
+                 -- 返回值    success
+
+           4) /admin/remove  删除一个管理员账号
+                 -- 参数       id
+                 -- 返回值    success
+
+           5) /admin/edit    编辑一个管理员账号
+                 -- 参数       id, name, login_name, password(md5)
+                 -- 返回值    {id, name, login_name, email, last_login_time, ip }
+
+
+ 2.4.2 机器人
+
+     操作：启用、禁用、删除、添加机器人、编辑、勾选、分页、上传头像
+
+     列表：头像、名称、Email
+
+     API ：1) /robot/list   请求当前机器人信息列表
+                 -- 参数       page, num_per_page
+                 -- 返回值    [{ id, image_url, name, signature, email, password }, ...]
+
+           2) /robot/add     添加一个机器人账号
+                 -- 参数       image_url, name, signature, email, password(md5)
+                 -- 返回值    {id, image_url, name, signature, email, password }
+
+           3) /robot/enable  启用/禁用一个机器人账号
+                 -- 参数       id, enable=1/0
+                 -- 返回值    success
+
+           4) /robot/remove  删除一个机器人账号
+                 -- 参数       id
+                 -- 返回值    success
+
+           5) /robot/edit    编辑一个机器人账号
+                 -- 参数       id, image_url, name, signature, email, password(md5)
+                 -- 返回值    {id, image_url, name, signature, email, password }
+</code></pre></li>
+</ol>
+
+<p style="padding:20px 36px;">
+	<a href="http://tbp.bz/4rDFhg" target="_blank">查看原文件</a>
+</p>
+
+</body>
+</html>
